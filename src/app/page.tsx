@@ -7,7 +7,6 @@ import ToolCard from '@/components/ToolCard';
 import BlogCard from '@/components/BlogCard';
 import SearchTools from '@/components/SearchTools';
 import FAQ from '@/components/FAQ';
-import AdSlot from '@/components/AdSlot';
 
 export const metadata: Metadata = {
   title: 'Free Online Image Tools — Compress, Resize, Convert Images',
@@ -148,9 +147,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Ad Placement 1 */}
-      <AdSlot slot="header" />
-
       {/* Search and Interactive Filter */}
       <section id="tools" className="scroll-mt-20">
         <div className="mb-6">
@@ -237,9 +233,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Ad Placement 2 */}
-      <AdSlot slot="in-content" />
-
       {/* Latest Blog Guides */}
       <section>
         <div className="flex items-center justify-between mb-6">
@@ -267,9 +260,6 @@ export default function HomePage() {
 
       {/* FAQ Section */}
       <FAQ faqs={generalFaqs} />
-
-      {/* Ad Placement 3 */}
-      <AdSlot slot="footer" />
     </div>
   );
 }

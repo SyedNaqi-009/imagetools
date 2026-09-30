@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { BLOG_POSTS } from '@/lib/blog';
 import BlogCard from '@/components/BlogCard';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import AdSlot from '@/components/AdSlot';
 
 export const metadata: Metadata = {
   title: 'Blog — Image Tools Tips & Guides | ImageTools',
@@ -58,20 +57,10 @@ export default function BlogListingPage() {
         </p>
       </header>
 
-      {/* Grid of Blog Posts with AdSlot after 3rd card */}
+      {/* Grid of Blog Posts */}
       <section>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedPosts.slice(0, 3).map((post) => (
-            <BlogCard key={post.slug} post={post} />
-          ))}
-        </div>
-
-        <div className="my-8">
-          <AdSlot slot="in-content" />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedPosts.slice(3).map((post) => (
+          {sortedPosts.map((post) => (
             <BlogCard key={post.slug} post={post} />
           ))}
         </div>

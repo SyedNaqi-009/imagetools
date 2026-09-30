@@ -8,7 +8,6 @@ import { renderMarkdown } from '@/lib/utils';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import ToolCard from '@/components/ToolCard';
 import BlogCard from '@/components/BlogCard';
-import AdSlot from '@/components/AdSlot';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -132,17 +131,11 @@ export default async function BlogPostPage({ params }: PageProps) {
         </p>
       </header>
 
-      {/* Ad Placement 1 */}
-      <AdSlot slot="header" />
-
       {/* Main Content Area */}
       <div
         className="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-base leading-relaxed"
         dangerouslySetInnerHTML={{ __html: renderedContent }}
       />
-
-      {/* Ad Placement 2 */}
-      <AdSlot slot="in-content" />
 
       {/* Related Image Tools Section */}
       {relatedTools.length > 0 && (

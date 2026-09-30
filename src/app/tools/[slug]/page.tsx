@@ -8,7 +8,6 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import ToolInterface from '@/components/ToolInterface';
 import FAQ from '@/components/FAQ';
 import RelatedTools from '@/components/RelatedTools';
-import AdSlot from '@/components/AdSlot';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -103,9 +102,6 @@ export default async function ToolPage({ params }: PageProps) {
         </p>
       </header>
 
-      {/* Ad Placement 1 */}
-      <AdSlot slot="header" />
-
       {/* Main Interactive Tool UI */}
       <section aria-label="Tool Processing Area">
         <ToolInterface toolSlug={tool.slug} acceptedFormats={tool.acceptedFormats} />
@@ -149,9 +145,6 @@ export default async function ToolPage({ params }: PageProps) {
           ))}
         </div>
       </section>
-
-      {/* Ad Placement 2 */}
-      <AdSlot slot="in-content" />
 
       {/* Detailed SEO Educational Content */}
       <section className="prose dark:prose-invert max-w-none border-t border-slate-200 dark:border-slate-800 pt-8">
