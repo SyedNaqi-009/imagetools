@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { Mail, MessageSquare, Clock, Send } from 'lucide-react';
+import { Mail, MessageSquare, Clock, Send, ShieldCheck, Terminal } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata: Metadata = {
-  title: 'Contact Us — Support & Inquiries | ImageTools',
+  title: 'Direct Engineering Contact & Inquiries | ImageTools Studio',
   description:
-    'Have a question, feedback, or feature request? Contact the ImageTools team. We typically respond within 24-48 hours.',
+    'Contact the ImageTools development team for feature feedback, algorithmic enhancements, and technical inquiries.',
   alternates: {
     canonical: 'https://imagetools.dev/contact',
   },
@@ -13,83 +13,87 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
-      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Contact Us' }]} />
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+      <Breadcrumbs items={[{ label: 'Studio Home', href: '/' }, { label: 'Contact' }]} />
 
-      <header className="space-y-3">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight">
-          Contact Us
+      <header className="rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-[#111827] p-8 sm:p-12 shadow-sm space-y-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 text-xs font-mono font-semibold uppercase tracking-wider border border-sky-500/20">
+          <Terminal className="w-3.5 h-3.5" />
+          <span>Communications Terminal</span>
+        </div>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-50 tracking-tight leading-tight">
+          Direct Developer Support
         </h1>
-        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-          Have questions, suggestions, or bug reports? We would love to hear from you. Fill out the form below or email us directly.
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+          Questions about browser compatibility, suggestions for new image algorithms, or general feedback? Send us a message.
         </p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Contact Info Sidebar */}
-        <div className="space-y-6">
-          <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-4">
+        {/* Info Column */}
+        <div className="space-y-4">
+          <div className="p-6 rounded-2xl bg-white dark:bg-[#111827] border border-slate-200/90 dark:border-slate-800 space-y-4 shadow-sm">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-400">
+              <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center shrink-0">
                 <Mail className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900 dark:text-slate-100 text-sm">Direct Email</h3>
+                <h3 className="font-bold text-sm text-slate-800 dark:text-slate-200">Electronic Mail</h3>
                 <a
                   href="mailto:contact@imagetools.dev"
-                  className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline font-mono"
+                  className="text-xs font-mono text-sky-500 hover:underline"
                 >
                   contact@imagetools.dev
                 </a>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
-              <div className="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
                 <Clock className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900 dark:text-slate-100 text-sm">Response Time</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">We typically respond within 24-48 hours</p>
+                <h3 className="font-bold text-sm text-slate-800 dark:text-slate-200">Response Window</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Within 24 to 48 hours</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
-              <div className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center text-purple-600 dark:text-purple-400">
-                <MessageSquare className="w-5 h-5" />
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900 dark:text-slate-100 text-sm">Community</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">Feedback helps us improve tools</p>
+                <h3 className="font-bold text-sm text-slate-800 dark:text-slate-200">Security Inquiries</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Disclosures reviewed promptly</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Contact Form */}
-        <div className="md:col-span-2 p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <form action="/api/contact-placeholder" method="POST" className="space-y-5">
+        {/* Form Column */}
+        <div className="md:col-span-2 p-8 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200/90 dark:border-slate-800 shadow-sm">
+          <form action="/api/contact-placeholder" method="POST" className="space-y-4">
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+                className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1"
               >
-                Your Name
+                Name / Handle
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 required
-                placeholder="Jane Doe"
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
+                placeholder="Alex Developer"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-900 text-sm outline-none focus:border-sky-500 transition-colors"
               />
             </div>
 
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+                className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1"
               >
                 Email Address
               </label>
@@ -98,50 +102,50 @@ export default function ContactPage() {
                 id="email"
                 name="email"
                 required
-                placeholder="jane@example.com"
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
+                placeholder="alex@domain.com"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-900 text-sm outline-none focus:border-sky-500 transition-colors"
               />
             </div>
 
             <div>
               <label
                 htmlFor="subject"
-                className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+                className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1"
               >
-                Subject
+                Inquiry Topic
               </label>
               <input
                 type="text"
                 id="subject"
                 name="subject"
                 required
-                placeholder="Bug report, feature suggestion, or question"
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
+                placeholder="Bug report, algorithm proposal, or partnership"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-900 text-sm outline-none focus:border-sky-500 transition-colors"
               />
             </div>
 
             <div>
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5"
+                className="block text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1"
               >
-                Message
+                Detailed Message
               </label>
               <textarea
                 id="message"
                 name="message"
                 rows={5}
                 required
-                placeholder="How can we help you today?"
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow resize-y"
+                placeholder="Please describe your experience or proposal in detail..."
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-900 text-sm outline-none focus:border-sky-500 transition-colors resize-y"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors shadow-sm"
+              className="px-7 py-3 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-sky-500/20 transition-all flex items-center gap-2 cursor-pointer"
             >
-              <Send className="w-4 h-4" /> Send Message
+              <Send className="w-3.5 h-3.5" /> Dispatch Message
             </button>
           </form>
         </div>

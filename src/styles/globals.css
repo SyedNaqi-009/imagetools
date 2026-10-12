@@ -4,14 +4,42 @@
 
 @layer base {
   :root {
-    --background: 255 255 255;
+    --background: 250 250 252;
     --foreground: 15 23 42;
+    --surface: 255 255 255;
+    --surface-elevated: 248 250 252;
+    --border-subtle: 226 232 240;
+    --border-strong: 203 213 225;
+    --accent: 14 165 233; /* Cyan/Sky */
+    --accent-hover: 2 132 199;
   }
   .dark {
-    --background: 15 23 42;
-    --foreground: 248 250 252;
+    --background: 11 15 25; /* Deep obsidian navy */
+    --foreground: 241 245 249;
+    --surface: 17 24 39; /* Rich slate/indigo surface */
+    --surface-elevated: 24 33 53;
+    --border-subtle: 30 41 59;
+    --border-strong: 51 65 85;
+    --accent: 56 189 248;
+    --accent-hover: 14 165 233;
   }
   body {
-    @apply bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 antialiased;
+    @apply bg-[#fafafc] dark:bg-[#0b0f19] text-slate-800 dark:text-slate-100 antialiased selection:bg-sky-500 selection:text-white;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
+}
+
+/* Glassmorphism & Workbench Grid Patterns */
+.tech-grid-pattern {
+  background-image: radial-gradient(rgba(14, 165, 233, 0.12) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+.dark .tech-grid-pattern {
+  background-image: radial-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Precise monospace numbers for tools */
+.font-mono-numbers {
+  font-variant-numeric: tabular-nums lining-nums;
 }

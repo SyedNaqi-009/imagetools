@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Clock, Calendar, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Clock, Calendar, ArrowRight, ArrowLeft, Terminal, BookOpen, Layers } from 'lucide-react';
 import { getBlogPostBySlug, getAllBlogSlugs, BLOG_POSTS } from '@/lib/blog';
 import { getToolBySlug, type Tool } from '@/lib/tools';
 import { renderMarkdown } from '@/lib/utils';
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!post) return {};
 
   return {
-    title: `${post.title} | ImageTools Blog`,
+    title: `${post.title} | ImageTools Studio`,
     description: post.description,
     openGraph: {
       title: post.title,
@@ -72,7 +72,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'ImageTools',
+      name: 'ImageTools Studio',
       logo: {
         '@type': 'ImageObject',
         url: 'https://imagetools.dev/favicon.ico',
@@ -87,7 +87,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   const renderedContent = renderMarkdown(post.content);
 
   return (
-    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
@@ -95,22 +95,23 @@ export default async function BlogPostPage({ params }: PageProps) {
 
       <Breadcrumbs
         items={[
-          { label: 'Home', href: '/' },
-          { label: 'Blog', href: '/blog' },
+          { label: 'Studio Home', href: '/' },
+          { label: 'Knowledge Base', href: '/blog' },
           { label: post.title },
         ]}
       />
 
-      <header className="space-y-4">
-        <div className="flex items-center gap-3">
-          <span className="px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider">
+      {/* Article Header Card */}
+      <header className="rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-[#111827] p-8 sm:p-10 shadow-sm space-y-4">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="px-3 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 text-xs font-mono font-semibold uppercase tracking-wider border border-sky-500/20">
             {post.category}
           </span>
-          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-1.5 text-xs font-mono text-slate-500 dark:text-slate-400">
             <Clock className="w-3.5 h-3.5" />
             <span>{post.readTime}</span>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-1.5 text-xs font-mono text-slate-500 dark:text-slate-400">
             <Calendar className="w-3.5 h-3.5" />
             <time dateTime={post.date}>
               {new Date(post.date).toLocaleDateString('en-US', {
@@ -122,29 +123,35 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-50 tracking-tight leading-tight">
           {post.title}
         </h1>
 
-        <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
           {post.description}
         </p>
       </header>
 
-      {/* Main Content Area */}
-      <div
-        className="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-base leading-relaxed"
-        dangerouslySetInnerHTML={{ __html: renderedContent }}
-      />
+      {/* Main Formatted Markdown Content */}
+      <div className="rounded-3xl bg-white dark:bg-[#111827] border border-slate-200/90 dark:border-slate-800 p-8 sm:p-12 shadow-sm">
+        <div
+          className="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: renderedContent }}
+        />
+      </div>
 
-      {/* Related Image Tools Section */}
+      {/* Direct Interactive Tools Launchpad */}
       {relatedTools.length > 0 && (
-        <section className="p-6 sm:p-8 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">
-            Try the Tools Mentioned in this Article
+        <section className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/90 dark:border-slate-800 space-y-4">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-sky-500 font-bold">
+            <Layers className="w-4 h-4" />
+            <span>Integrated Studio Utilities</span>
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Launch Tools Featured in This Article
           </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
-            Free, fast, and 100% private in-browser image tools:
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4">
+            Test the techniques discussed above with zero installations or server uploads:
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {relatedTools.map((tool) => (
@@ -154,17 +161,17 @@ export default async function BlogPostPage({ params }: PageProps) {
         </section>
       )}
 
-      {/* Other Blog Posts */}
-      <section className="border-t border-slate-200 dark:border-slate-800 pt-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            More Helpful Guides
+      {/* More Guides Navigation */}
+      <section className="border-t border-slate-200 dark:border-slate-800 pt-8 space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+            Further Technical Reading
           </h2>
           <Link
             href="/blog"
-            className="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+            className="text-xs font-mono font-semibold text-sky-500 hover:underline flex items-center gap-1"
           >
-            All Articles <ArrowRight className="w-3.5 h-3.5" />
+            All Articles &rarr;
           </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -174,13 +181,13 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Back Link */}
-      <div className="pt-4">
+      {/* Back to Listing */}
+      <div className="pt-2">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-slate-500 hover:text-sky-500 transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to all articles
+          <ArrowLeft className="w-4 h-4" /> Back to Knowledge Base
         </Link>
       </div>
     </article>

@@ -1,7 +1,17 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { CheckCircle2, ArrowRight } from 'lucide-react';
+import {
+  CheckCircle2,
+  ArrowRight,
+  ShieldCheck,
+  Cpu,
+  Layers,
+  Sparkles,
+  Zap,
+  HelpCircle,
+  BookOpen,
+} from 'lucide-react';
 import { getToolBySlug, getAllSlugs, getRelatedTools } from '@/lib/tools';
 import { BLOG_POSTS } from '@/lib/blog';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -54,9 +64,7 @@ export default async function ToolPage({ params }: PageProps) {
   const relatedTools = getRelatedTools(slug);
 
   // Find blog posts referencing this tool
-  const relevantPosts = BLOG_POSTS.filter((post) =>
-    post.relatedTools.includes(slug)
-  );
+  const relevantPosts = BLOG_POSTS.filter((post) => post.relatedTools.includes(slug));
 
   const softwareSchema = {
     '@context': 'https://schema.org',
@@ -65,7 +73,7 @@ export default async function ToolPage({ params }: PageProps) {
     headline: tool.headline,
     description: tool.description,
     applicationCategory: 'UtilityApplication',
-    operatingSystem: 'Any (Web Browser)',
+    operatingSystem: 'Any Modern Web Browser',
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -74,119 +82,162 @@ export default async function ToolPage({ params }: PageProps) {
   };
 
   return (
-    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
       />
 
-      {/* Breadcrumbs */}
+      {/* Breadcrumb Navigation */}
       <Breadcrumbs
         items={[
-          { label: 'Home', href: '/' },
-          { label: 'Tools', href: '/#tools' },
+          { label: 'Studio Home', href: '/' },
+          { label: 'Tool Suites', href: '/#workbench' },
           { label: tool.name },
         ]}
       />
 
-      {/* Tool Header */}
-      <header className="space-y-3">
-        <div className="inline-block px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-semibold capitalize tracking-wide">
-          {tool.category} Utility
+      {/* Tool Header Presentation Banner */}
+      <header className="relative rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-[#111827] p-8 sm:p-10 shadow-sm overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-sky-500/5 dark:bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 space-y-4 max-w-3xl">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="px-3 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 text-xs font-mono font-semibold uppercase tracking-wider border border-sky-500/20">
+              {tool.category} Suite
+            </span>
+            <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-semibold flex items-center gap-1.5 border border-emerald-500/20">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>In-Memory Execution</span>
+            </span>
+          </div>
+
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-slate-50 tracking-tight leading-tight">
+            {tool.headline}
+          </h1>
+
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+            {tool.shortDesc} No uploads to remote cloud services. Fast, private, and unlimited processing directly in browser RAM.
+          </p>
+
+          <div className="pt-2 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400">
+            <span>Accepts formats:</span>
+            {tool.acceptedFormats.map((fmt) => (
+              <span
+                key={fmt}
+                className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-semibold uppercase text-slate-700 dark:text-slate-300"
+              >
+                {fmt.replace('.', '')}
+              </span>
+            ))}
+          </div>
         </div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight">
-          {tool.headline}
-        </h1>
-        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-          {tool.shortDesc} All operations are 100% client-side — your photos stay private and never hit external servers.
-        </p>
       </header>
 
-      {/* Main Interactive Tool UI */}
-      <section aria-label="Tool Processing Area">
+      {/* Main Interactive Tool Workbench Area */}
+      <section aria-label="Tool Transformation Workbench">
         <ToolInterface toolSlug={tool.slug} acceptedFormats={tool.acceptedFormats} />
       </section>
 
-      {/* How to Use Section */}
-      <section className="p-6 sm:p-8 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6">
-          How to Use the {tool.name}
-        </h2>
-        <ol className="space-y-4">
-          {tool.howItWorks.map((step, index) => (
-            <li key={index} className="flex items-start gap-4">
-              <span className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm flex items-center justify-center">
-                {index + 1}
-              </span>
-              <p className="text-slate-700 dark:text-slate-300 mt-1 leading-relaxed">
-                {step}
-              </p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      {/* Benefits Section */}
-      <section>
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6">
-          Key Benefits &amp; Features
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {tool.benefits.map((benefit, index) => (
-            <div
-              key={index}
-              className="flex items-start gap-3 p-4 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/40"
-            >
-              <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-              <span className="text-sm font-medium text-slate-700 dark:text-slate-300 leading-snug">
-                {benefit}
-              </span>
+      {/* Two-Column Specification & Benefits Panel */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Step-by-Step Instructions */}
+        <section className="p-7 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-6">
+          <div>
+            <div className="text-xs font-mono uppercase tracking-wider text-sky-500 font-bold mb-1">
+              Step-by-Step Guide
             </div>
-          ))}
-        </div>
-      </section>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+              How to Operate {tool.name}
+            </h2>
+          </div>
 
-      {/* Detailed SEO Educational Content */}
-      <section className="prose dark:prose-invert max-w-none border-t border-slate-200 dark:border-slate-800 pt-8">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-          About {tool.name}
+          <ol className="space-y-4">
+            {tool.howItWorks.map((step, index) => (
+              <li key={index} className="flex items-start gap-3.5">
+                <span className="flex-shrink-0 w-7 h-7 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 font-mono font-bold text-xs flex items-center justify-center border border-sky-500/20">
+                  {index + 1}
+                </span>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mt-0.5">
+                  {step}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* Benefits & Value Props */}
+        <section className="p-7 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-6">
+          <div>
+            <div className="text-xs font-mono uppercase tracking-wider text-indigo-500 font-bold mb-1">
+              Technical Advantages
+            </div>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+              Performance &amp; Privacy Benefits
+            </h2>
+          </div>
+
+          <div className="space-y-3">
+            {tool.benefits.map((benefit, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800"
+              >
+                <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 leading-snug">
+                  {benefit}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* In-Depth Technical Editorial Content */}
+      <section className="rounded-3xl bg-white dark:bg-[#111827] border border-slate-200/90 dark:border-slate-800 p-8 sm:p-10 shadow-sm space-y-4">
+        <div className="text-xs font-mono uppercase tracking-wider text-sky-500 font-bold">
+          Educational Deep Dive
+        </div>
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+          Understanding {tool.name} Architecture
         </h2>
-        <div className="text-slate-600 dark:text-slate-300 leading-relaxed space-y-4 whitespace-pre-line">
+        <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed space-y-4 whitespace-pre-line">
           {tool.intro}
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <FAQ faqs={tool.faqs} />
-
-      {/* Relevant Blog Posts Link */}
+      {/* Relevant Technical Guides Links */}
       {relevantPosts.length > 0 && (
-        <section className="p-6 rounded-2xl bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200/60 dark:border-blue-900/40">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
-            Related Guides &amp; Tutorials
+        <section className="p-7 rounded-3xl bg-gradient-to-r from-sky-50/60 to-indigo-50/60 dark:from-slate-900 dark:to-[#111827] border border-sky-500/20 space-y-4">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-bold">
+            <BookOpen className="w-4 h-4" />
+            <span>Recommended Reading</span>
+          </div>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+            Guides Complementing {tool.name}
           </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-            Learn more about optimizing images with our deep-dive tutorials:
-          </p>
-          <div className="space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {relevantPosts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group flex items-center justify-between p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-400 transition-colors"
+                className="group flex items-center justify-between p-4 rounded-xl bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-sky-500 transition-all shadow-sm"
               >
-                <span className="text-sm font-medium text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                <span className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 group-hover:text-sky-500 dark:group-hover:text-sky-400">
                   {post.title}
                 </span>
-                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600 shrink-0" />
+                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-sky-500 shrink-0 ml-2 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             ))}
           </div>
         </section>
       )}
 
-      {/* Related Tools Grid */}
+      {/* FAQ Section */}
+      <FAQ faqs={tool.faqs} />
+
+      {/* Related Suite Tools */}
       <RelatedTools tools={relatedTools} />
-    </article>
+    </div>
   );
 }

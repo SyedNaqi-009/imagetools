@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ChevronRight, Home } from 'lucide-react';
 
 interface BreadcrumbItem {
   label: string;
@@ -19,16 +20,35 @@ export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
 
   return (
     <nav aria-label="Breadcrumb" className="mb-6">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <ol className="flex flex-wrap items-center gap-1 text-sm text-slate-500 dark:text-slate-400">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ol className="flex flex-wrap items-center gap-1.5 text-xs font-mono text-slate-500 dark:text-slate-400">
         {items.map((item, i) => (
-          <li key={i} className="flex items-center gap-1">
-            {i > 0 && <span className="text-slate-300 dark:text-slate-600">/</span>}
-            {item.href ? (
-              <Link href={item.href} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{item.label}</Link>
-            ) : (
-              <span className="text-slate-700 dark:text-slate-300 font-medium">{item.label}</span>
+          <li key={i} className="flex items-center gap-1.5">
+            {i > 0 && <ChevronRight className="w-3.5 h-3.5 text-slate-400 dark:text-slate-600 shrink-0" />}
+            {i === 0 && item.href && (
+              <Link
+                href={item.href}
+                className="hover:text-sky-500 dark:hover:text-sky-400 flex items-center gap-1 transition-colors"
+              >
+                <Home className="w-3.5 h-3.5" />
+                <span>{item.label}</span>
+              </Link>
             )}
+            {i > 0 && item.href ? (
+              <Link
+                href={item.href}
+                className="hover:text-sky-500 dark:hover:text-sky-400 transition-colors"
+              >
+                {item.label}
+              </Link>
+            ) : i > 0 ? (
+              <span className="text-slate-900 dark:text-slate-200 font-semibold truncate max-w-[220px] sm:max-w-none">
+                {item.label}
+              </span>
+            ) : null}
           </li>
         ))}
       </ol>

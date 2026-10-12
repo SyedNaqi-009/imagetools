@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Zap, Lock, Heart, Award } from 'lucide-react';
+import { Cpu, ShieldCheck, Zap, HardDrive, Terminal, CheckCircle2, ArrowRight } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata: Metadata = {
-  title: 'About Us — Mission, Privacy & Technology | ImageTools',
+  title: 'Engineering Manifesto & Architecture | ImageTools Studio',
   description:
-    'Learn how ImageTools delivers private, lightning-fast client-side image processing without server uploads. Discover our mission, values, and technology.',
+    'Learn how ImageTools executes client-side WebAssembly image processing with zero cloud uploads, extreme memory isolation, and instant hardware acceleration.',
   alternates: {
     canonical: 'https://imagetools.dev/about',
   },
@@ -14,115 +14,88 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
-      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'About Us' }]} />
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+      <Breadcrumbs items={[{ label: 'Studio Home', href: '/' }, { label: 'Architecture & About' }]} />
 
-      <header className="space-y-4">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight">
-          About ImageTools
+      <header className="rounded-3xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-[#111827] p-8 sm:p-12 shadow-sm space-y-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 text-xs font-mono font-semibold uppercase tracking-wider border border-sky-500/20">
+          <Terminal className="w-3.5 h-3.5" />
+          <span>Core Engineering Philosophy</span>
+        </div>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-50 tracking-tight leading-tight">
+          Client-Side Media Engineering
         </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-          Empowering creators, developers, photographers, and businesses worldwide with free, uncompromisingly private image processing tools that run entirely in your web browser.
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+          Why we built an image manipulation workbench where zero bytes ever touch an external server.
         </p>
       </header>
 
-      {/* Our Mission */}
-      <section className="space-y-4">
+      {/* The Problem with Cloud Tools */}
+      <section className="rounded-3xl bg-white dark:bg-[#111827] border border-slate-200/90 dark:border-slate-800 p-8 sm:p-10 shadow-sm space-y-4">
         <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-          Our Mission: Privacy First by Design
+          The Problem with Traditional Web Converters
         </h2>
-        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-          For years, online image converters and compressors have forced users into an unacceptable trade-off: upload your personal photographs, sensitive client mockups, or private documents to unknown third-party servers just to change a file extension or reduce an image size. Once uploaded, users have no real guarantee of where their files are stored, who can see them, or how long they linger on remote hard drives.
+        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          Most online utilities operate on an outdated model: you upload confidential images, personal photos, or proprietary mockups to an anonymous remote server. Once uploaded, your files pass through unknown network caches and disk storage systems before you receive a download link.
         </p>
-        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-          At ImageTools, we set out to build a modern alternative. Leveraging the cutting-edge capabilities of modern web browsers—including the HTML5 Canvas API, WebAssembly, Web Workers, and client-side JavaScript—we run 100% of our image transformation algorithms locally on your computer, tablet, or smartphone.
-        </p>
-        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-          When you use ImageTools, your images are never sent over the wire to our servers. They are never logged, never cached in an external database, and never used to train machine learning models. You enjoy the speed of local hardware execution alongside the convenience of a web utility accessible from anywhere.
+        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          This architecture introduces fundamental vulnerabilities: exposure of sensitive EXIF location metadata, artificial file-size throttles, lengthy upload queues over mobile data, and intrusive subscription paywalls.
         </p>
       </section>
 
-      {/* Core Principles */}
+      {/* Architectural Pillars */}
       <section className="space-y-6">
         <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-          Our Core Pillars
+          Our Three Architectural Pillars
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-400">
-              <Lock className="w-5 h-5" />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl bg-white dark:bg-[#111827] border border-slate-200/90 dark:border-slate-800 space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center">
+              <HardDrive className="w-5 h-5" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Absolute Privacy
-            </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              Your data belongs to you. By eliminating server-side uploads entirely, we ensure that confidential business contracts, family portraits, and ID scans remain securely in your local memory.
+            <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">Local RAM Buffering</h3>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+              When an image is loaded, it is read directly into your device’s volatile memory. Processing occurs via HTML5 Canvas and WebAssembly. No bytes are sent over the internet.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+          <div className="p-6 rounded-2xl bg-white dark:bg-[#111827] border border-slate-200/90 dark:border-slate-800 space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center">
               <Zap className="w-5 h-5" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Instant Hardware Speed
-            </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              Why wait for gigabyte uploads on slow broadband? Local browser threads compress, convert, and crop images at the speed of your device&apos;s processor, eliminating network bottlenecks.
+            <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">Hardware Threading</h3>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+              Transformations take advantage of your device’s CPU and GPU threads. Web Workers process operations in background threads, keeping your UI responsive.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center text-purple-600 dark:text-purple-400">
-              <Heart className="w-5 h-5" />
+          <div className="p-6 rounded-2xl bg-white dark:bg-[#111827] border border-slate-200/90 dark:border-slate-800 space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+              <ShieldCheck className="w-5 h-5" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Truly Free for Everyone
-            </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              No artificial batch limits, no intrusive watermarks, and no surprise paywalls. We believe essential productivity tools should be freely accessible to students, freelancers, and enterprises alike.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center text-amber-600 dark:text-amber-400">
-              <Award className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Pristine Fidelity
-            </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              We provide fine-grained controls over compression ratios, color palettes, and dimensions so you always achieve professional studio-grade visual outputs.
+            <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">Zero Commercial Traps</h3>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+              Without cloud server compute costs for every byte converted, we offer all 25 modules completely free—unlimited, water-mark free, and without registration barriers.
             </p>
           </div>
         </div>
       </section>
 
-      {/* The Team Vision */}
-      <section className="space-y-4">
+      {/* CTA Section */}
+      <section className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-sky-500/10 via-indigo-500/10 to-teal-500/10 border border-sky-500/20 text-center space-y-4">
         <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-          Built by Developers for Creators
+          Experience Private Media Transformation
         </h2>
-        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-          ImageTools was founded by a passionate group of frontend engineers, designers, and open-source contributors who were tired of bloated utility websites filled with deceptive download buttons, invasive trackers, and subscription traps.
+        <p className="text-sm text-slate-600 dark:text-slate-300 max-w-lg mx-auto">
+          Start compressing, converting, and editing directly in your web browser.
         </p>
-        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-          We maintain a lean, modern stack built on Next.js, TypeScript, and modern browser standards. Our monetization strategy relies exclusively on tasteful, non-intrusive banner advertising that supports our hosting and domain maintenance costs without degrading your workflow or reading experience.
-        </p>
-        <div className="pt-4 flex items-center gap-4">
-          <Link
-            href="/#tools"
-            className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors"
-          >
-            Explore Free Tools
-          </Link>
-          <Link
-            href="/contact"
-            className="px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-sm transition-colors"
-          >
-            Get in Touch
-          </Link>
-        </div>
+        <Link
+          href="/#workbench"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-sm shadow-md transition-all"
+        >
+          Open Tool Directory <ArrowRight className="w-4 h-4" />
+        </Link>
       </section>
     </div>
   );
